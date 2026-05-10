@@ -134,6 +134,63 @@
       <li
         class="menu-list__list-item"
         role="presentation"
+        on:focus="/activate"
+        on:blur="/deactivate"
+        on:pointerenter="/activate"
+        on:pointerleave="/deactivate"
+      >
+        <a
+          href="/blogs/doctors-lounge"
+          class="menu-list__link"
+          aria-controls="submenu-resources"
+          aria-haspopup="true"
+          aria-expanded="false"
+          ref="menuitem"
+        >
+          <span class="menu-list__link-title">Resources</span>
+        </a>
+        <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
+          <div
+            id="submenu-resources"
+            class="menu-list__submenu-inner"
+          >
+            <div class="mega-menu section section--full-width-margin section--{{ section.settings.section_width }}">
+              <div class="mega-menu__grid rumeds-resources-grid">
+                <div class="mega-menu__column">
+                  <p class="rumeds-resources-label">Doctor's Lounge</p>
+                  <a href="/blogs/doctors-lounge" class="mega-menu__link">All Articles</a>
+                  <a href="/blogs/doctors-lounge/tagged/scrubs" class="mega-menu__link">Scrub Guides</a>
+                  <a href="/blogs/doctors-lounge/tagged/lifestyle" class="mega-menu__link">Doctor Lifestyle</a>
+                  <a href="/blogs/doctors-lounge/tagged/wellness" class="mega-menu__link">Wellness Tips</a>
+                  <a href="/blogs/doctors-lounge/tagged/career" class="mega-menu__link">Career Advice</a>
+                  <a href="/blogs/doctors-lounge/tagged/technology" class="mega-menu__link">Medical Tech</a>
+                </div>
+                <div class="mega-menu__column">
+                  <p class="rumeds-resources-label">Popular Topics</p>
+                  <a href="/blogs/doctors-lounge/tagged/fabric-technology" class="mega-menu__link">Fabric Technology</a>
+                  <a href="/blogs/doctors-lounge/tagged/infection-control" class="mega-menu__link">Infection Control</a>
+                  <a href="/blogs/doctors-lounge/tagged/ergonomics" class="mega-menu__link">Ergonomics & Posture</a>
+                  <a href="/blogs/doctors-lounge/tagged/residency" class="mega-menu__link">Residency Tips</a>
+                  <a href="/blogs/doctors-lounge/tagged/womens-health" class="mega-menu__link">Women in Medicine</a>
+                </div>
+                <div class="mega-menu__column rumeds-resources-featured">
+                  <p class="rumeds-resources-label">Featured</p>
+                  <a href="/blogs/doctors-lounge" class="rumeds-resources-card">
+                    <span class="rumeds-resources-card-icon">📚</span>
+                    <span>
+                      <strong>Start Here</strong>
+                      <span>Browse all articles from India's doctor community</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li
+        class="menu-list__list-item"
+        role="presentation"
         slot="more"
         on:focus="/activate"
         on:blur="/deactivate"
@@ -145,6 +202,7 @@
         </button>
       </li>
     {% endcapture %}
+
 
     <header-menu
       ref="headerMenu"
@@ -691,6 +749,80 @@
   .mega-menu__submenu {
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
+  }
+
+  /* Rumeds Resources mega menu */
+  .rumeds-resources-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 2rem var(--menu-horizontal-gap);
+    width: 100%;
+  }
+
+  .rumeds-resources-grid .mega-menu__column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+  }
+
+  .rumeds-resources-grid .mega-menu__link {
+    display: block;
+    width: 100%;
+    padding: 0.3rem 0;
+  }
+
+  .rumeds-resources-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.45;
+    margin: 0 0 0.75rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    width: 100%;
+  }
+
+  .rumeds-resources-featured {
+    background: rgba(0,0,0,0.03);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .rumeds-resources-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    width: 100%;
+  }
+
+  .rumeds-resources-card:hover {
+    background: rgba(0,0,0,0.05);
+  }
+
+  .rumeds-resources-card-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .rumeds-resources-card strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .rumeds-resources-card span span {
+    font-size: 0.78rem;
+    opacity: 0.65;
+    line-height: 1.4;
+    display: block;
   }
 {% endstylesheet %}
 

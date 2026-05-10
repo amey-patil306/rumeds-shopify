@@ -1,0 +1,132 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--page-width color-{{ section.settings.color_scheme }} spacing-style referral-cta-section"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="referral-cta-inner">
+    <div class="referral-cta-badge">🎁 Referral Program</div>
+    <h2 class="referral-cta-heading">Refer a Doctor. Earn a Scrub.</h2>
+    <p class="referral-cta-body">Every doctor you refer earns you 100 Shift Points — enough for a free scrub set. Share your unique link and start earning today.</p>
+    <div class="referral-cta-steps">
+      <div class="referral-step">
+        <span class="referral-step-num">01</span>
+        <span>Share your referral link with a colleague</span>
+      </div>
+      <div class="referral-step">
+        <span class="referral-step-num">02</span>
+        <span>They complete their first purchase</span>
+      </div>
+      <div class="referral-step">
+        <span class="referral-step-num">03</span>
+        <span>You both earn Shift Points instantly</span>
+      </div>
+    </div>
+    <a href="/account" class="button">Get My Referral Link</a>
+  </div>
+</div>
+
+{% stylesheet %}
+  .referral-cta-section {
+    text-align: center;
+  }
+
+  .referral-cta-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .referral-cta-badge {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    border: 1px solid currentColor;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+
+  .referral-cta-heading {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .referral-cta-body {
+    line-height: 1.7;
+    opacity: 0.8;
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .referral-cta-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 420px;
+    text-align: left;
+    margin: 0.5rem 0;
+  }
+
+  .referral-step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .referral-step-num {
+    font-size: 1.25rem;
+    font-weight: 800;
+    opacity: 0.3;
+    min-width: 2rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Referral CTA",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Referral CTA"
+    }
+  ]
+}
+{% endschema %}

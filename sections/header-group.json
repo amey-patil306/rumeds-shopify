@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "header",
   "name": "Header",
@@ -17,7 +8,7 @@
         "announcement_6KKfqz": {
           "type": "_announcement",
           "settings": {
-            "text": "Don’t Miss Out — Subscribe & Save 10%",
+            "text": "Don\u2019t Miss Out \u2014 Subscribe & Save 10%",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
@@ -39,11 +30,25 @@
             "case": "none"
           },
           "blocks": {}
+        },
+        "announcement_blog": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Doctor's Lounge \u2014 Read Our Latest Insights",
+            "link": "/blogs/doctors-lounge",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "announcement_6KKfqz",
-        "announcement_BxgCk9"
+        "announcement_BxgCk9",
+        "announcement_blog"
       ],
       "name": "t:names.announcement_bar",
       "settings": {

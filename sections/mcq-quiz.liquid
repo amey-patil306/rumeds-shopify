@@ -1,0 +1,247 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style" style="{% render 'spacing-style', settings: section.settings %}">
+  
+  <div class="mcq-quiz-container" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 2rem; border-radius: 12px; background: rgba(0,0,0,0.03);">
+    {% if section.settings.title != blank %}
+      <h2 class="{{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
+    {% endif %}
+    
+    {% if section.settings.subtitle != blank %}
+      <p style="margin-bottom: 2rem;">{{ section.settings.subtitle }}</p>
+    {% endif %}
+
+    <div id="mcq-quiz-ui-{{ section.id }}" class="mcq-quiz-ui">
+      <!-- Quiz will be injected here by JS -->
+      <div class="quiz-loading">Loading Quiz...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const quizData = [
+      {% for block in section.blocks %}
+        {
+          question: {{ block.settings.question | json }},
+          options: [
+            {{ block.settings.option_1 | json }},
+            {{ block.settings.option_2 | json }},
+            {{ block.settings.option_3 | json }},
+            {{ block.settings.option_4 | json }}
+          ].filter(Boolean),
+          correct_index: {{ block.settings.correct_option | minus: 1 }},
+          explanation: {{ block.settings.explanation | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    const container = document.getElementById('mcq-quiz-ui-{{ section.id }}');
+    if (!quizData.length) {
+      container.innerHTML = '<p>Please add questions in the theme editor.</p>';
+      return;
+    }
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function renderQuestion() {
+      if (currentQuestionIndex >= quizData.length) {
+        renderResults();
+        return;
+      }
+
+      const q = quizData[currentQuestionIndex];
+      let html = `<h3 style="margin-bottom:1.5rem; font-size: 1.5rem;">${q.question}</h3>`;
+      html += `<div style="display:flex; flex-direction:column; gap:10px; max-width:400px; margin:0 auto;">`;
+      
+      q.options.forEach((opt, index) => {
+        html += `<button class="button button-secondary mcq-option" data-index="${index}" style="width:100%; text-align:left; justify-content:center;">${opt}</button>`;
+      });
+      
+      html += `</div>`;
+      html += `<div id="mcq-feedback" style="margin-top: 1.5rem; min-height: 50px;"></div>`;
+      
+      container.innerHTML = html;
+
+      document.querySelectorAll('.mcq-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+          handleAnswer(parseInt(this.getAttribute('data-index')));
+        });
+      });
+    }
+
+    function handleAnswer(selectedIndex) {
+      const q = quizData[currentQuestionIndex];
+      const isCorrect = selectedIndex === q.correct_index;
+      
+      if (isCorrect) score++;
+
+      const feedback = document.getElementById('mcq-feedback');
+      const buttons = document.querySelectorAll('.mcq-option');
+      
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correct_index) {
+          btn.style.backgroundColor = '#4caf50'; // Green
+          btn.style.color = '#fff';
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.style.backgroundColor = '#f44336'; // Red
+          btn.style.color = '#fff';
+        }
+      });
+
+      feedback.innerHTML = `
+        <p style="font-weight:bold; color: ${isCorrect ? '#4caf50' : '#f44336'}">
+          ${isCorrect ? 'Correct!' : 'Incorrect.'}
+        </p>
+        ${q.explanation ? `<p style="font-size:0.9rem; margin-top:5px;">${q.explanation}</p>` : ''}
+        <button id="mcq-next" class="button" style="margin-top:15px;">Next Question</button>
+      `;
+
+      document.getElementById('mcq-next').addEventListener('click', () => {
+        currentQuestionIndex++;
+        renderQuestion();
+      });
+    }
+
+    function renderResults() {
+      const percentage = Math.round((score / quizData.length) * 100);
+      let message = "";
+      if (percentage === 100) message = "Perfect Score! You definitely need a fresh set of Rumeds.";
+      else if (percentage >= 50) message = "Great job! Treat yourself to some new scrubs.";
+      else message = "Good try! Time to study up... in comfortable scrubs.";
+
+      container.innerHTML = `
+        <h3>Quiz Complete!</h3>
+        <p style="font-size: 2rem; font-weight: bold; margin: 1rem 0;">${score} / ${quizData.length}</p>
+        <p>${message}</p>
+        <a href="/collections/all" class="button" style="margin-top: 2rem;">Shop Scrubs</a>
+      `;
+    }
+
+    renderQuestion();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "MCQ Quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Test Your Medical Knowledge"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Take our quick quiz and see how you score!"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page Width" },
+        { "value": "narrow", "label": "Narrow" }
+      ],
+      "default": "narrow"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question text",
+          "default": "What is the normal resting heart rate for adults?"
+        },
+        {
+          "type": "text",
+          "id": "option_1",
+          "label": "Option 1",
+          "default": "40-60 bpm"
+        },
+        {
+          "type": "text",
+          "id": "option_2",
+          "label": "Option 2",
+          "default": "60-100 bpm"
+        },
+        {
+          "type": "text",
+          "id": "option_3",
+          "label": "Option 3",
+          "default": "100-120 bpm"
+        },
+        {
+          "type": "text",
+          "id": "option_4",
+          "label": "Option 4",
+          "default": "120-140 bpm"
+        },
+        {
+          "type": "range",
+          "id": "correct_option",
+          "label": "Correct Option (1-4)",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "textarea",
+          "id": "explanation",
+          "label": "Explanation (Optional)",
+          "default": "A normal resting heart rate for adults ranges from 60 to 100 beats per minute."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MCQ Quiz",
+      "blocks": [
+        {
+          "type": "question"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

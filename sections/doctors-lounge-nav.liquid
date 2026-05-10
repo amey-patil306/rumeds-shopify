@@ -1,0 +1,112 @@
+<div class="doctors-lounge-nav color-{{ section.settings.color_scheme }}">
+  <div class="section--page-width doctors-lounge-nav__inner">
+    <span class="doctors-lounge-nav__label">📖 Doctor's Lounge:</span>
+    <nav class="doctors-lounge-nav__links" aria-label="Blog navigation">
+      <a href="/blogs/doctors-lounge" class="doctors-lounge-nav__link">All Articles</a>
+      <a href="/blogs/doctors-lounge/tagged/scrubs" class="doctors-lounge-nav__link">Scrub Guides</a>
+      <a href="/blogs/doctors-lounge/tagged/lifestyle" class="doctors-lounge-nav__link">Doctor Lifestyle</a>
+      <a href="/blogs/doctors-lounge/tagged/wellness" class="doctors-lounge-nav__link">Wellness Tips</a>
+      <a href="/blogs/doctors-lounge/tagged/career" class="doctors-lounge-nav__link">Career Advice</a>
+    </nav>
+    <a href="/blogs/doctors-lounge" class="doctors-lounge-nav__cta">View All →</a>
+  </div>
+</div>
+
+{% stylesheet %}
+  .doctors-lounge-nav {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: sticky;
+    top: var(--header-group-height, 0);
+    z-index: calc(var(--layer-sticky, 400) - 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .doctors-lounge-nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 0.6rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .doctors-lounge-nav__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .doctors-lounge-nav__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .doctors-lounge-nav__links {
+    display: flex;
+    gap: 0;
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .doctors-lounge-nav__link {
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    opacity: 0.7;
+  }
+
+  .doctors-lounge-nav__link:hover {
+    background: rgba(0,0,0,0.06);
+    opacity: 1;
+  }
+
+  .doctors-lounge-nav__cta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .doctors-lounge-nav__cta:hover {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .doctors-lounge-nav__label {
+      display: none;
+    }
+    .doctors-lounge-nav__cta {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Doctor's Lounge Nav",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Doctor's Lounge Nav"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,174 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <h2 style="text-align:center; margin-bottom: 2.5rem;">{{ section.settings.heading }}</h2>
+
+  <div class="rumeds-faq-list">
+    {% for block in section.blocks %}
+      <details class="rumeds-faq-item" {{ block.shopify_attributes }}>
+        <summary class="rumeds-faq-question">
+          {{ block.settings.question }}
+          <span class="rumeds-faq-icon">+</span>
+        </summary>
+        <div class="rumeds-faq-answer">
+          {{ block.settings.answer }}
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .rumeds-faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .rumeds-faq-item {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .rumeds-faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    gap: 1rem;
+    transition: background 0.2s ease;
+  }
+
+  .rumeds-faq-question::-webkit-details-marker { display: none; }
+
+  .rumeds-faq-item[open] .rumeds-faq-question {
+    background: rgba(0,0,0,0.03);
+  }
+
+  .rumeds-faq-icon {
+    font-size: 1.4rem;
+    font-weight: 300;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+
+  .rumeds-faq-item[open] .rumeds-faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .rumeds-faq-answer {
+    padding: 0 1.5rem 1.25rem;
+    line-height: 1.7;
+    opacity: 0.8;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page Width" },
+        { "value": "narrow", "label": "Narrow" }
+      ],
+      "default": "narrow"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What makes Rumeds scrubs different?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Our scrubs are designed specifically for the rigorous demands of medical professionals, featuring advanced 4-way stretch, anti-microbial finishing, and optimal pocket placement.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What makes Rumeds scrubs different?",
+            "answer": "<p>Our scrubs are designed specifically for the rigorous demands of medical professionals, featuring advanced 4-way stretch, anti-microbial finishing, and optimal pocket placement.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I know my size?",
+            "answer": "<p>Please refer to our detailed sizing chart available on every product page. We offer true-to-size fits with options for tall and petite lengths.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the Shift Card loyalty program work?",
+            "answer": "<p>For every purchase, you earn 1 Shift Point. Collect 5 points to unlock a free scrub set! You will also level up in tiers for early access and VIP pricing.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

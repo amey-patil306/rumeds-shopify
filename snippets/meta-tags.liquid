@@ -113,9 +113,103 @@
   href="{{ canonical_url }}"
 >
 
-{% if page_description %}
+{%- liquid
+  assign meta_desc = page_description
+  if meta_desc == blank and request.page_type == 'product'
+    assign meta_desc = product.description | strip_html | truncate: 155
+  elsif meta_desc == blank and request.page_type == 'article'
+    assign meta_desc = article.excerpt_or_content | strip_html | truncate: 155
+  elsif meta_desc == blank and request.page_type == 'collection'
+    assign meta_desc = collection.description | strip_html | truncate: 155
+  elsif meta_desc == blank
+    assign meta_desc = shop.description | default: shop.name
+  endif
+-%}
+{% if meta_desc != blank %}
   <meta
     name="description"
-    content="{{ page_description | escape }}"
+    content="{{ meta_desc | escape }}"
   >
 {% endif %}
+
+{% comment %} Schema.org JSON-LD — Blog Article {% endcomment %}
+{%- if request.page_type == 'article' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ article.title | json }},
+  "description": {{ meta_desc | json }},
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ settings.logo | image_url: width: 200 }}"
+    }
+  },
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "dateModified": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "url": "{{ canonical_url }}"
+  {%- if article.image -%},
+  "image": "{{ article.image | image_url: width: 1200 }}"
+  {%- endif -%}
+}
+</script>
+{%- endif -%}
+
+{% comment %} Schema.org JSON-LD — Breadcrumb {% endcomment %}
+{%- if request.page_type == 'article' or request.page_type == 'collection' or request.page_type == 'product' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ request.origin }}"
+    }
+    {%- if request.page_type == 'article' -%},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ blog.title | json }},
+      "item": "{{ request.origin }}/blogs/{{ blog.handle }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ article.title | json }},
+      "item": "{{ canonical_url }}"
+    }
+    {%- elsif request.page_type == 'product' -%},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Shop",
+      "item": "{{ request.origin }}/collections/all"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ product.title | json }},
+      "item": "{{ canonical_url }}"
+    }
+    {%- elsif request.page_type == 'collection' -%},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ collection.title | json }},
+      "item": "{{ canonical_url }}"
+    }
+    {%- endif -%}
+  ]
+}
+</script>
+{%- endif -%}

@@ -1,0 +1,191 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--page-width color-{{ section.settings.color_scheme }} spacing-style built-for-shifts"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="bfs-grid">
+    <div class="bfs-content">
+      <p class="bfs-eyebrow">RUMEDS DIFFERENCE</p>
+      <h2 class="bfs-heading">Built for Long Shifts</h2>
+      <p class="bfs-body">Engineered with premium, breathable fabric that stretches and moves with you. Stay comfortable from hour 1 to 24.</p>
+      <div class="bfs-features">
+        <div class="bfs-feature">
+          <span class="bfs-feature-icon">⚡</span>
+          <span>4-Way Stretch Fabric</span>
+        </div>
+        <div class="bfs-feature">
+          <span class="bfs-feature-icon">🛡️</span>
+          <span>Antimicrobial Finish</span>
+        </div>
+        <div class="bfs-feature">
+          <span class="bfs-feature-icon">🌬️</span>
+          <span>Moisture-Wicking Technology</span>
+        </div>
+        <div class="bfs-feature">
+          <span class="bfs-feature-icon">👜</span>
+          <span>Ergonomic Pocket Placement</span>
+        </div>
+      </div>
+      <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_label }}</a>
+    </div>
+    <div class="bfs-visual">
+      {% if section.settings.image %}
+        {{
+          section.settings.image
+          | image_url: width: 800
+          | image_tag:
+            loading: 'lazy',
+            class: 'bfs-image',
+            alt: 'Rumeds scrubs built for long shifts'
+        }}
+      {% else %}
+        <div class="bfs-placeholder">
+          {{ 'product-apparel-1' | placeholder_svg_tag: 'bfs-placeholder-svg' }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .built-for-shifts {
+    container-type: inline-size;
+  }
+
+  .bfs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @container (max-width: 749px) {
+    .bfs-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .bfs-visual { order: -1; }
+  }
+
+  .bfs-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .bfs-heading {
+    font-size: clamp(2rem, 4cqw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+
+  .bfs-body {
+    line-height: 1.7;
+    opacity: 0.8;
+    max-width: 44ch;
+    margin-bottom: 2rem;
+  }
+
+  .bfs-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .bfs-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .bfs-feature-icon {
+    font-size: 1.1rem;
+    width: 2rem;
+    text-align: center;
+  }
+
+  .bfs-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    aspect-ratio: 4/5;
+  }
+
+  .bfs-placeholder {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: rgba(0,0,0,0.06);
+  }
+
+  .bfs-placeholder-svg {
+    width: 100%;
+    height: 100%;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Built for Shifts",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Discover Our Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Built for Shifts"
+    }
+  ]
+}
+{% endschema %}
