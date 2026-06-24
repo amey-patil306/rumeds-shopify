@@ -556,6 +556,47 @@
               </li>
             {%- endfor -%}
           {% endif %}
+
+          {%- comment -%} Rumeds: hard-coded Resources (Doctor's Lounge) drawer item {%- endcomment -%}
+          <li
+            class="{%- if block_settings.drawer_accordion -%}menu-drawer__list-item--deep{%- else -%}menu-drawer__list-item--flat{%- endif -%}{% if block_settings.drawer_dividers %} menu-drawer__list-item--divider{% endif %}"
+            style="--menu-drawer-animation-index: {{ linklist.links.size | plus: 1 }};"
+          >
+            <accordion-custom>
+              <details id="Details-menu-drawer-rumeds-resources">
+                <summary
+                  id="HeaderDrawer-rumeds-resources"
+                  class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset"
+                >
+                  <span class="menu-drawer__menu-item-text wrap-text">Resources</span>
+                  <span class="svg-wrapper icon-plus">
+                    {{- 'icon-plus.svg' | inline_asset_content -}}
+                  </span>
+                </summary>
+                <ul
+                  class="menu-drawer__menu menu-drawer__menu--childlist menu-drawer__animated-element details-content"
+                  role="list"
+                  tabindex="-1"
+                >
+                  {%- assign rumeds_resource_titles = 'All Articles,Scrub Guides,Doctor Lifestyle,Wellness Tips,Career Advice,Medical Tech' | split: ',' -%}
+                  {%- assign rumeds_resource_urls = '/blogs/doctors-lounge,/blogs/doctors-lounge/tagged/scrubs,/blogs/doctors-lounge/tagged/lifestyle,/blogs/doctors-lounge/tagged/wellness,/blogs/doctors-lounge/tagged/career,/blogs/doctors-lounge/tagged/technology' | split: ',' -%}
+                  {%- for rumeds_title in rumeds_resource_titles -%}
+                    <li
+                      class="menu-drawer__list-item"
+                      style="--menu-drawer-animation-index: {{ forloop.index }};"
+                    >
+                      <a
+                        href="{{ rumeds_resource_urls[forloop.index0] }}"
+                        class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset"
+                      >
+                        <span class="menu-drawer__menu-item-text wrap-text">{{ rumeds_title }}</span>
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            </accordion-custom>
+          </li>
         </ul>
       </nav>
       <div

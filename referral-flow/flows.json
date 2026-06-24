@@ -1,0 +1,62 @@
+{
+  "flows": [
+    {
+      "id": "flow_1_welcome",
+      "name": "ENTRY / WELCOME",
+      "trigger": ["Hi", "Hello", "Hey", "QR scan", "?chat=hi", "?ref=qr"],
+      "message": "👋 Welcome to Rumeds\nDesigned for doctors who don't get to slow down.\n\n🎁 Earn rewards on every referral\n\nReply with:\n1️⃣ Get my referral code\n2️⃣ Explore scrubs\n3️⃣ Track my rewards"
+    },
+    {
+      "id": "flow_2_referral_code",
+      "name": "REFERRAL CODE GENERATION",
+      "trigger": ["1"],
+      "message": "🔐 Your Rumeds Referral Code:\nDR{{name}}{{last3digits}}\n\nShare this with fellow doctors 👇\n\n✅ They get ₹500 OFF\n✅ You get ₹500 credit\n\n🎯 3 successful referrals = FREE scrub\n\nTap below to share:\n👉 Share on WhatsApp",
+      "actions": ["share_whatsapp"]
+    },
+    {
+      "id": "flow_3_share_message",
+      "name": "SHARE MESSAGE (AUTO-FILL)",
+      "trigger": ["share_whatsapp_button"],
+      "whatsapp_text": "Hey! I've been using Rumeds scrubs — super comfortable for long shifts.\n\nYou'll get ₹500 off with my code: DR{{code}}\n\nCheck it out: {{website_link}}\n\nDefinitely worth it for duty hours."
+    },
+    {
+      "id": "flow_4_track_rewards",
+      "name": "TRACK REWARDS",
+      "trigger": ["3"],
+      "message": "🩺 Your Rumeds Progress\n\nReferrals: {{referral_count}} / 3\nRewards Earned: ₹{{wallet_amount}}\n\n🎁 3 referrals unlock your FREE scrub\n\nYou're closer than you think 👀\n\n👉 Type 1 to share your code again"
+    },
+    {
+      "id": "flow_5_referral_success",
+      "name": "AFTER SUCCESSFUL REFERRAL",
+      "trigger": ["order_paid_with_referral_code", "?referral_success=1", "RumedsReferral.recordSuccess()"],
+      "message": "🎉 Success!\n\nYour referral just placed an order 🙌\n\n₹500 has been added to your wallet 💰\n\n🩺 Progress: {{referral_count}} / 3\n\nKeep going — your FREE scrub is close."
+    },
+    {
+      "id": "flow_6_free_scrub",
+      "name": "FREE SCRUB UNLOCK",
+      "trigger": ["referral_count >= 3"],
+      "message": "🏆 You did it!\n\nYou've unlocked your FREE Rumeds Scrub 🎁\n\nUse this code at checkout:\nFREESCRUB{{user_id}}\n\nKeep referring to unlock more rewards 👇\n\n👉 Type 1 to continue sharing",
+      "shopify_action": "Create discount code FREESCRUB{{user_id}} for 100% off one scrub"
+    },
+    {
+      "id": "flow_7_reengagement",
+      "name": "RE-ENGAGEMENT",
+      "trigger": ["5_days_inactive", "return_visit"],
+      "message": "Long shift? We get it.\n\nYou're just {{remaining}} referral away from a FREE scrub 👀\n\nDon't miss it — share your code now:\n👉 Type 1"
+    },
+    {
+      "id": "flow_8_explore_scrubs",
+      "name": "EXPLORE SCRUBS",
+      "trigger": ["2"],
+      "message": "👕 Explore Rumeds Scrubs\n\n✔️ Precision Stretch\n✔️ Breathable Fabric\n✔️ Wrinkle Resistant\n\nBuilt for long duty hours.\n\n👉 Shop now: {{website_link}}/collections/all\n👉 Or type 1 to earn rewards"
+    }
+  ],
+  "qr_links": {
+    "welcome": "https://rumeds.myshopify.com/?chat=hi",
+    "referral": "https://rumeds.myshopify.com/?ref=qr"
+  },
+  "whatsapp_setup": {
+    "note": "For native WhatsApp Business flows, replicate these triggers in Meta Business Suite or connect Shopify order webhooks to Flow 5.",
+    "share_url_template": "https://wa.me/{{whatsapp_number}}?text={{encoded_share_message}}"
+  }
+}

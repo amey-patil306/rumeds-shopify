@@ -1,0 +1,301 @@
+{%- liquid
+  assign chat_whatsapp = whatsapp_number | default: ''
+  assign chat_website = website_url | default: shop.url
+  assign chat_shop = shop_url | default: routes.all_products_collection_url
+  assign chat_reward = reward_amount | default: 500
+  assign chat_target = referrals_for_free | default: 3
+-%}
+
+<script src="{{ 'rumeds-referral-chat.js' | asset_url }}" defer></script>
+
+<rumeds-referral-chat
+  class="rumeds-chat"
+  data-website-url="{{ chat_website }}"
+  data-shop-url="{{ chat_shop }}"
+  data-whatsapp-number="{{ chat_whatsapp }}"
+  data-reward-amount="{{ chat_reward }}"
+  data-referrals-for-free="{{ chat_target }}"
+>
+  <button
+    type="button"
+    class="rumeds-chat__toggle"
+    data-chat-toggle
+    aria-label="Open Rumeds rewards chat"
+  >
+    <span class="rumeds-chat__toggle-icon" aria-hidden="true">🎁</span>
+    <span class="rumeds-chat__toggle-label">Rewards</span>
+  </button>
+
+  <div class="rumeds-chat__panel" data-chat-panel role="dialog" aria-label="Rumeds referral assistant">
+    <header class="rumeds-chat__header">
+      <div>
+        <strong class="rumeds-chat__title">Rumeds Rewards</strong>
+        <span class="rumeds-chat__subtitle">Refer a doctor. Earn a scrub.</span>
+      </div>
+      <button type="button" class="rumeds-chat__close" data-chat-close aria-label="Close chat">×</button>
+    </header>
+
+    <div class="rumeds-chat__messages" data-chat-messages></div>
+
+    <div class="rumeds-chat__quick" data-quick-actions>
+      <button type="button" class="rumeds-chat__chip" data-action="1">1 · Referral code</button>
+      <button type="button" class="rumeds-chat__chip" data-action="2">2 · Scrubs</button>
+      <button type="button" class="rumeds-chat__chip" data-action="3">3 · Rewards</button>
+    </div>
+
+    <form class="rumeds-chat__form" data-chat-form>
+      <input
+        type="text"
+        class="rumeds-chat__input"
+        data-chat-input
+        placeholder="Type Hi, 1, 2, or 3…"
+        autocomplete="off"
+        maxlength="200"
+      >
+      <button type="submit" class="rumeds-chat__send" aria-label="Send">↑</button>
+    </form>
+  </div>
+</rumeds-referral-chat>
+
+<script>
+  document.querySelector('rumeds-referral-chat [data-chat-close]')?.addEventListener('click', function () {
+    const root = this.closest('rumeds-referral-chat');
+    root?.closeChat?.();
+  });
+</script>
+
+{% stylesheet %}
+  .rumeds-chat {
+    --rumeds-chat-z: 9999;
+    font-family: var(--font-body--family, Inter, system-ui, sans-serif);
+  }
+
+  .rumeds-chat__toggle {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: var(--rumeds-chat-z);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.1rem;
+    border: none;
+    border-radius: 100px;
+    background: #000;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .rumeds-chat__toggle:hover {
+    transform: translateY(-2px);
+  }
+
+  .rumeds-chat__toggle.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .rumeds-chat__toggle-icon {
+    font-size: 1.1rem;
+  }
+
+  .rumeds-chat__panel {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: calc(var(--rumeds-chat-z) + 1);
+    width: min(380px, calc(100vw - 2rem));
+    height: min(560px, calc(100vh - 2rem));
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px) scale(0.98);
+    transition: opacity 0.25s, transform 0.25s;
+  }
+
+  .rumeds-chat__panel.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .rumeds-chat__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    background: #000;
+    color: #fff;
+  }
+
+  .rumeds-chat__title {
+    display: block;
+    font-size: 1rem;
+  }
+
+  .rumeds-chat__subtitle {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.75;
+    margin-top: 0.15rem;
+  }
+
+  .rumeds-chat__close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.8;
+    padding: 0;
+  }
+
+  .rumeds-chat__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: #f7f7f7;
+  }
+
+  .rumeds-chat__msg {
+    display: flex;
+  }
+
+  .rumeds-chat__msg--bot {
+    justify-content: flex-start;
+  }
+
+  .rumeds-chat__msg--user {
+    justify-content: flex-end;
+  }
+
+  .rumeds-chat__bubble {
+    max-width: 88%;
+    padding: 0.75rem 0.9rem;
+    border-radius: 14px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+
+  .rumeds-chat__msg--bot .rumeds-chat__bubble {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom-left-radius: 4px;
+  }
+
+  .rumeds-chat__msg--user .rumeds-chat__bubble {
+    background: #000;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  .rumeds-chat__actions {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .rumeds-chat__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+  }
+
+  .rumeds-chat__btn--wa {
+    background: #25d366;
+  }
+
+  .rumeds-chat__quick {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem 0;
+    flex-wrap: wrap;
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .rumeds-chat__chip {
+    padding: 0.35rem 0.65rem;
+    border-radius: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+
+  .rumeds-chat__chip:hover {
+    background: #f0f0f0;
+  }
+
+  .rumeds-chat__form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .rumeds-chat__input {
+    flex: 1;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.875rem;
+    outline: none;
+  }
+
+  .rumeds-chat__input:focus {
+    border-color: #000;
+  }
+
+  .rumeds-chat__send {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    .rumeds-chat__panel {
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+
+    .rumeds-chat__toggle {
+      bottom: 1rem;
+      right: 1rem;
+    }
+  }
+{% endstylesheet %}

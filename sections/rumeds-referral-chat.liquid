@@ -1,0 +1,55 @@
+{% render 'rumeds-referral-chat',
+  whatsapp_number: section.settings.whatsapp_number,
+  website_url: section.settings.website_url | default: shop.url,
+  shop_url: section.settings.shop_url | default: routes.all_products_collection_url,
+  reward_amount: section.settings.reward_amount,
+  referrals_for_free: section.settings.referrals_for_free
+%}
+
+{% schema %}
+{
+  "name": "Rumeds Referral Chat",
+  "tag": "section",
+  "class": "rumeds-referral-chat-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Floating referral chat with 8 automated flows. QR / welcome link: ?chat=hi or ?ref=qr"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp number (with country code, no +)",
+      "placeholder": "919876543210",
+      "info": "Used for Share on WhatsApp button in Flow 2"
+    },
+    {
+      "type": "url",
+      "id": "website_url",
+      "label": "Website link in share message"
+    },
+    {
+      "type": "url",
+      "id": "shop_url",
+      "label": "Shop scrubs link (Flow 8)"
+    },
+    {
+      "type": "number",
+      "id": "reward_amount",
+      "label": "Reward amount (₹)",
+      "default": 500
+    },
+    {
+      "type": "number",
+      "id": "referrals_for_free",
+      "label": "Referrals for free scrub",
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rumeds Referral Chat"
+    }
+  ]
+}
+{% endschema %}
