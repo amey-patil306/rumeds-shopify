@@ -213,10 +213,19 @@
         "padding-block-start": 20,
         "padding-block-end": 48
       }
+    },
+    "rumeds_referral_chat": {
+      "type": "rumeds-referral-chat",
+      "settings": {
+        "whatsapp_number": "",
+        "reward_amount": 500,
+        "referrals_for_free": 3
+      }
     }
   },
   "order": [
     "footer_m9NzUG",
-    "footer_utilities_jLGE8U"
+    "footer_utilities_jLGE8U",
+    "rumeds_referral_chat"
   ]
 }

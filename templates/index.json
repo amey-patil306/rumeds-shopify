@@ -183,8 +183,8 @@
         "faq_3": {
           "type": "faq_item",
           "settings": {
-            "question": "How does the Shift Card loyalty program work?",
-            "answer": "<p>For every purchase, you earn 1 Shift Point. Collect 5 points to unlock a free scrub set! You will also level up in tiers for early access and VIP pricing.</p>"
+            "question": "How does the referral program work?",
+            "answer": "<p>Get your personal code from the Rewards chat (e.g. DRRAHUL123). Fellow doctors get ₹500 off; you earn ₹500 wallet credit per successful referral. Three referrals unlock a FREE scrub with your FREESCRUB code at checkout.</p>"
           }
         }
       },
