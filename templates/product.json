@@ -250,23 +250,80 @@
             },
             "accordion_features": {
               "type": "accordion",
-              "settings": {},
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h6",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
               "blocks": {
                 "feature_1": {
                   "type": "_accordion-row",
-                  "settings": {},
+                  "settings": {
+                    "heading": "Accordion heading",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
                   "blocks": {
                     "title_1": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Fabric & Technology</p>"
-                      }
+                        "text": "<p>Fabric & Technology</p>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     },
                     "content_1": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our proprietary scrub fabric features 4-way stretch, moisture-wicking technology, and anti-wrinkle properties to keep you looking sharp all shift long.</p>"
-                      }
+                        "text": "<p>Our proprietary scrub fabric features 4-way stretch, moisture-wicking technology, and anti-wrinkle properties to keep you looking sharp all shift long.</p>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -276,19 +333,62 @@
                 },
                 "feature_2": {
                   "type": "_accordion-row",
-                  "settings": {},
+                  "settings": {
+                    "heading": "Accordion heading",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
                   "blocks": {
                     "title_2": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Care Instructions</p>"
-                      }
+                        "text": "<p>Care Instructions</p>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     },
                     "content_2": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Machine wash cold with like colors. Tumble dry low. Do not bleach. Our fabric is designed to withstand high-temperature hospital laundering if needed.</p>"
-                      }
+                        "text": "<p>Machine wash cold with like colors. Tumble dry low. Do not bleach. Our fabric is designed to withstand high-temperature hospital laundering if needed.</p>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -465,10 +565,55 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "1783510679c3d52fd6": {
+      "type": "_blocks",
+      "blocks": {
+        "judge_me_reviews_review_widget_Bt3g6J": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_Bt3g6J"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "1783510679c3d52fd6"
   ]
 }

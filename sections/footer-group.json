@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer",
@@ -100,6 +109,46 @@
             "text_f9CFLH"
           ]
         },
+        "menu_shop": {
+          "type": "menu",
+          "settings": {
+            "menu": "main-menu",
+            "heading": "Shop",
+            "menu_spacing": 12,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": false,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading_preset": "h3",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "menu_quick_links": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer",
+            "heading": "Quick Links",
+            "menu_spacing": 12,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": false,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading_preset": "h3",
+            "link_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "email_signup_crihX7": {
           "type": "email-signup",
           "settings": {
@@ -124,24 +173,6 @@
             "padding-inline-end": 0
           },
           "blocks": {}
-        },
-        "menu_shop": {
-          "type": "menu",
-          "settings": {
-            "menu": "main-menu",
-            "heading": "Shop",
-            "show_as_accordion": true,
-            "inherit_color_scheme": true
-          }
-        },
-        "menu_quick_links": {
-          "type": "menu",
-          "settings": {
-            "menu": "footer",
-            "heading": "Quick Links",
-            "show_as_accordion": true,
-            "inherit_color_scheme": true
-          }
         }
       },
       "block_order": [
@@ -216,9 +247,12 @@
     },
     "rumeds_referral_chat": {
       "type": "rumeds-referral-chat",
+      "disabled": true,
       "settings": {
-        "whatsapp_number": "",
-        "reward_amount": 500,
+        "whatsapp_number": "+91 89999 25939",
+        "website_url": "",
+        "shop_url": "",
+        "reward_amount": 299,
         "referrals_for_free": 3
       }
     }
