@@ -79,10 +79,14 @@
     "variant_button_width": "equal-width-buttons",
     "content_for_index": [],
     "blocks": {
-      "11532412952436166569": {
-        "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+      "316487575649303945": {
+        "type": "shopify://apps/easify-options/blocks/app-embed-block/d2288b18-c1ba-42f5-b3b3-26c75c8820bf",
         "disabled": false,
-        "settings": {}
+        "settings": {
+          "theme_app_version": "none",
+          "path_loading_mode": "include",
+          "page_paths": ""
+        }
       }
     },
     "color_schemes": {
